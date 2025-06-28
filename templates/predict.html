@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Detection - PoultryDetect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #007a4c;
+      --primary-dark: #075b0b;
+      --accent-color: #bf360c;
+      --bg-light: #f9f9f9;
+      --bg-white: #ffffff;
+      --text-main: #333;
+      --text-muted: #555;
+      --header-bg: #075b0b;
+      --font-main: 'Poppins', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header {
+      background-color: var(--header-bg);
+      color: #fff;
+      padding: 15px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a.active,
+    nav a:hover {
+      color:#65f35a
+    }
+
+    .main-section,
+    .prediction-page {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .main-section h2,
+    .prediction-page h2 {
+      font-size: 32px;
+      color: var(--accent-color);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .upload-section {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--bg-white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .upload-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .file-upload-box {
+      border: 2px dashed var(--primary-color);
+      padding: 30px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .file-upload-box:hover {
+      background-color: #e0f7ea;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .btn,
+    .predict-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover,
+    .predict-btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .file-info {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .result-section {
+      margin-top: 50px;
+    }
+
+    .result-card {
+      background: var(--bg-white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .result-card h3 {
+      color: var(--accent-color);
+      margin-bottom: 20px;
+    }
+
+    .result-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .result-image img {
+      max-width: 300px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+    }
+
+    .result-details {
+      max-width: 400px;
+    }
+
+    .disease-result {
+      margin: 15px 0;
+    }
+
+    .disease-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .confidence {
+      display: block;
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-top: 5px;
+    }
+
+    .disease-info p {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .error-message {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #ffe6e6;
+      color: #a00;
+      border-left: 5px solid #f00;
+      border-radius: 5px;
+    }
+
+    footer {
+      text-align: center;
+      background-color: var(--header-bg);
+      color: #fff;
+      padding: 20px 0;
+      font-size: 14px;
+      margin-top: 60px;
+    }
+    footer .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .result-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .result-details {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1 class="logo">Poultry Detect</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/predict" class="active">Detect</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="prediction-page">
+  <div class="container" style="flex-direction: column; align-items: center;">
+    <h2>Poultry Disease Detection</h2>
+    <p class="subtitle">Upload an image of your poultry to detect potential diseases</p>
+
+    <div class="prediction-container">
+      <div class="upload-section">
+        <form method="POST" action="/predict" enctype="multipart/form-data" class="upload-form">
+          <label for="poultry-image" class="file-upload-label">
+            <div class="file-upload-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="upload-icon">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span class="upload-text">Choose an image file</span>
+              <span class="file-name" id="file-name">No file chosen</span>
+            </div>
+            <input type="file" id="poultry-image" name="poultry_image" accept="image/*" required>
+          </label>
+          <p class="file-info">Supported formats: JPG, PNG, JPEG (Max 5MB)</p>
+          <button type="submit" class="btn predict-btn">Detect Disease</button>
+        </form>
+      </div>
+
+      {% if error %}
+      <div class="error-message">
+        {{ error }}
+      </div>
+      {% endif %}
+
+      {% if prediction %}
+      <div class="result-section">
+        <div class="result-card">
+          <h3>Detection Result</h3>
+          <div class="result-content">
+            <div class="result-image">
+              {% if image_path %}
+              <img src="{{ url_for('static', filename=image_path) }}" alt="Uploaded poultry image">
+              {% else %}
+              <img src="{{ url_for('static', filename='hen-bg.jpg') }}" alt="Poultry placeholder">
+              {% endif %}
+            </div>
+            <div class="result-details">
+              <h4>The infection type detected as:</h4>
+              <div class="disease-result">
+                <span class="disease-name">{{ prediction }}</span>
+                <span class="confidence">Confidence: {{ confidence }}</span>
+              </div>
+              <div class="disease-info">
+                <p>{{ info }}</p>
+              </div>
+              <a href="/predict" class="btn try-again">Try Another Image</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2023 PoultryDetect. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('poultry-image').addEventListener('change', function(e) {
+    const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+    document.getElementById('file-name').textContent = fileName;
+  });
+</script>
+
+</body>
+</html>

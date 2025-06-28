@@ -1,1 +1,253 @@
-index
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoultryDetect - Poultry Health Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles - Dark Theme */
+/* Reset some basic elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container */
+.container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+/* Header */
+header {
+    background-color: #075b0b;
+    color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    transition: background 0.3s ease;
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+    color: #65f35a;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(to right, #ffffff, #e0f7ea);
+    padding: 60px 0;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.hero-content h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #004225;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 25px;
+    color: #555;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #007a4c;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #005f36;
+}
+
+/* Diseases Section */
+.diseases .container{
+    padding: 70px 0;
+    background-color: #fff;
+    display: inline;
+}
+
+.diseases h3 {
+    text-align: left;
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #004225;
+}
+
+.disease-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.disease-card {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.disease-card:hover {
+    transform: translateY(-5px);
+}
+
+.disease-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.disease-info {
+    padding: 20px;
+}
+
+.disease-info h4 {
+    margin-bottom: 10px;
+    color: #007a4c;
+    font-size: 20px;
+}
+
+.disease-info p {
+    font-size: 16px;
+    color: #444;
+}
+
+
+/* Footer */
+footer {
+    background-color: #004225;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 14px;
+}
+footer .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+/* Responsive Navigation (optional) */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-image {
+        margin-top: 30px;
+    }
+}
+</style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Poultry Detect</h1><br>
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="/predict">Detect</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Welcome to Poultry Health Hub</h2>
+                <p>Your comprehensive resource for poultry disease management and prevention.</p>
+                <a href="/predict" class="btn">GET STARTED</a>
+            </div>
+        </div>
+    </section>
+<!-- Section for Common Poultry Diseases -->
+<section class="diseases">
+    <div class="container">
+        <h3>Common Poultry Diseases</h3>
+        <div class="disease-grid">
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='coccidiosis.jpg') }}" alt="Coccidiosis">
+                <div class="disease-info">
+                    <h4>Coccidiosis</h4>
+                    <p>A parasitic disease of the intestinal tract that can cause bloody diarrhea and weight loss in poultry.</p>
+                </div>
+            </div>
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='hen-bg.jpg') }}" alt="Newcastle Disease">
+                <div class="disease-info">
+                    <h4>Newcastle Disease</h4>
+                    <p>A highly contagious viral disease that affects respiratory, nervous, and digestive systems of birds.</p>
+                </div>
+            </div>
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='salmonella.jpg') }}" alt="Salmonella">
+                <div class="disease-info">
+                    <h4>Salmonella</h4>
+                    <p>A bacterial infection that causes digestive problems and can be transmitted to humans through poultry products.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer with updated year -->
+<footer>
+    <div class="container">
+        <p>&copy; 2025 PoultryDetect. All rights reserved.</p>
+    </div>
+</footer>
